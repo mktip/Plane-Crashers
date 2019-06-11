@@ -1,0 +1,26 @@
+{
+  "name": "planes",
+  "version": "1.0.0",
+  "description": "multiplayer plane shooting game",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "planes",
+    "nodejs",
+    "node",
+    "multiplayer",
+    "javascript",
+    "html5",
+    "p5",
+    "js",
+    "game"
+  ],
+  "author": "Noor Al Deen Al Fayad",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.2.0"
+  }
+}
