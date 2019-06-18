@@ -29,8 +29,10 @@ io.sockets.on('connection', function(socket){
 
       gameState.players[socket.id] = {
         x: data.x,
-        y: data.y
+        y: data.y,
+        dir: data.dir
       };
+      console.log('server start: ' + data.dir)
 
     });
     //updating
@@ -38,6 +40,8 @@ io.sockets.on('connection', function(socket){
       var player = gameState.players[socket.id] || {};
       player.x = data.x;
       player.y = data.y;
+      player.dir = data.dir;
+      console.log('server update: ' + player.dir);
 
 
     });

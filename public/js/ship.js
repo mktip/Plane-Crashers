@@ -18,12 +18,14 @@ function ship(x,y,dir){
   }
 
   this.render = function() {
+    push();
     //translate translates the coordinate system by an x and y value
     translate(this.pos.x, this.pos.y);
     noFill();
     rotate(this.direction);
     stroke(255);
     triangle(-this.r, this.r, this.r,this.r, 0,-this.r);
+    pop();
   }
 
   /*Movement*/

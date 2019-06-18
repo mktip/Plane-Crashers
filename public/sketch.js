@@ -10,6 +10,7 @@ function setup(){
   var data = {
     x: clientShip.pos.x,
     y: clientShip.pos.y,
+    dir: clientShip.direction
   };
   socket.emit('start', data);
 
@@ -23,9 +24,11 @@ function draw(){
   });
   for(var id in ships){
       if(socket.id !== id){
+            translate(ships[i].x, ships[i].y);
+            rotate(ships[i].direction);
             noFill();
             stroke(255);
-            circle(ships[id].x, ships[id].y, 45);
+            triangle(ships[id].x, ships[id].y, 45);
           }
     }
 
@@ -38,6 +41,7 @@ function draw(){
   var data = {
     x: clientShip.pos.x,
     y: clientShip.pos.y,
+    dir: clientShip.direction
   };
 
 
