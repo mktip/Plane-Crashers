@@ -25,7 +25,7 @@ function draw(){
 
 for(var id in ships){
     if(socket.id !== id){
-        //translate from different function stack ontop of each other but by using push() and pop() the states of the objects is saved before and after each move.
+        //translate from different functions stack ontop of each other but by using push() and pop() the states of the objects is saved before each translation.
           push();
           translate(ships[id].x, ships[id].y);
           console.log('dir: ' + ships[id].dir);
@@ -36,17 +36,19 @@ for(var id in ships){
           pop();
             }
         }
-
+//calculations and rendering on the client side.
   clientShip.render();
   clientShip.update();
   clientShip.turn();
 
+//creating an object of the relavent variables after each move
   var data = {
     x: clientShip.pos.x,
     y: clientShip.pos.y,
     dir: clientShip.direction
   };
 
+//emiting the object to the server to be stored there and then sent to all other clients.
   socket.emit('update', data);
 
 }
