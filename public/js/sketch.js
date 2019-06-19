@@ -12,8 +12,8 @@ function setup(){
     y: clientShip.pos.y,
     dir: clientShip.direction
   };
-  socket.emit('start', data);
 
+  socket.emit('start', data);
 }
 
 function draw(){
@@ -23,32 +23,29 @@ function draw(){
     ships = data;
   });
 
-  for(var id in ships){
-      if(socket.id !== id){
+for(var id in ships){
+    if(socket.id !== id){
         //translate from different function stack ontop of each other but by using push() and pop() the states of the objects is saved before and after each move.
-            push();
-            translate(ships[id].x, ships[id].y);
-            console.log('dir: ' + ships[id].dir);
-            rotate(ships[id].dir);
-            noFill();
-            stroke(255);
-            triangle(-20, 20, 20,20, 0,-20);
-            pop();
-          }
-    }
-
+          push();
+          translate(ships[id].x, ships[id].y);
+          console.log('dir: ' + ships[id].dir);
+          rotate(ships[id].dir);
+          noFill();
+          stroke(255);
+          triangle(-20, 20, 20,20, 0,-20);
+          pop();
+            }
+        }
 
   clientShip.render();
   clientShip.update();
   clientShip.turn();
-
 
   var data = {
     x: clientShip.pos.x,
     y: clientShip.pos.y,
     dir: clientShip.direction
   };
-
 
   socket.emit('update', data);
 
