@@ -1,5 +1,5 @@
-function Bullet(shipPos, direction){
-	this.pos = createVector(shipPos.x, shipPos.y);
+function Bullet(shipPosX, shipPosY, direction){
+	this.pos = createVector(shipPosX, shipPosY);
 	this.vel = p5.Vector.fromAngle(direction-PI/2); //gives a vector in the direction of the given angle.
 	this.vel.mult(10);
 	this.extraPos = p5.Vector.fromAngle(direction-PI/2); //creating a vector that is in the direction the ship is pointing at

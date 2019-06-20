@@ -5,8 +5,7 @@ var express = require('express'),
 	socketIO = require('socket.io'),
 	app = express(),
 	server = http.Server(app),
-	io = socketIO(server),
-	bullets = [];
+	io = socketIO(server);
 
 app.use(express.static('public'));
 
@@ -15,7 +14,8 @@ app.get('/', function(request, response) {
 });
 
 const gameState = {
-	players: {}
+	players: {},
+	bullets: []
 }
 
 //calling the heartbeat function 60 times per second
@@ -23,7 +23,7 @@ setInterval(heartbeat, 1000/60);
 //emiting the state of the game which is a list of objects each with an x y and direction
 function heartbeat(){
 	//can add bullets to gameState and have gameState sent to the clients instead of gameState.players
-	io.sockets.emit('heartbeat', gameState.players);
+	io.sockets.emit('heartbeat', gameState);
 }
 
 io.sockets.on('connection', function(socket){
@@ -43,7 +43,10 @@ io.sockets.on('connection', function(socket){
 		player.y = data.y;
 		player.dir = data.dir;
 	});
-
+	
+	socket.on('bulletFired', function(data){
+		gameState.bullets.push(data);
+	});
 	socket.on('disconnect', function(){
 		console.log('disconnected.');
 		delete gameState.players[socket.id];
