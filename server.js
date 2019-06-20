@@ -42,6 +42,7 @@ io.sockets.on('connection', function(socket){
 		player.x = data.x;
 		player.y = data.y;
 		player.dir = data.dir;
+		gameState.bullets = data.allBullets;
 	});
 	
 	socket.on('bulletFired', function(data){

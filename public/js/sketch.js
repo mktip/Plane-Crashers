@@ -45,15 +45,8 @@ function draw(){
 	clientShip.update();
 	clientShip.turn();
 
-	//creating an object of the relavent variables after each move
-	var data = {
-		x: clientShip.pos.x,
-		y: clientShip.pos.y,
-		dir: clientShip.direction
-	};
 
 	//emiting the object to the server to be stored there and then sent to all other clients.
-	socket.emit('update', data);
 
 	/*Bullets*/
 	for(var i = 0; i < clientBullets.length;i++){
@@ -61,9 +54,24 @@ function draw(){
 		var bullet = new Bullet(clientBullets[i].bulletPosX, clientBullets[i].bulletPosY, clientBullets[i].bulletDirection);
 		bullet.render();
 		bullet.update();
+		clientBullets[i].bulletPosX = bullet.pos.x;
+		clientBullets[i].bulletPosY = bullet.pos.y;
 		if(bullet.pos.x > windowWidth || bullet.pos.x < 0 || bullet.pos.y > windowHeight || bullet.pos.y < 0)
 			clientBullets.splice(i, 1);
+
+		//sending the updated coordinates to the server.
+		console.log(clientBullets);
 }
+
+	//creating an object of the relavent variables after each move
+	var data = {
+		x: clientShip.pos.x,
+		y: clientShip.pos.y,
+		dir: clientShip.direction,
+		allBullets: clientBullets
+	};
+
+	socket.emit('update', data);
 
 	if(keyIsDown(87))
 		clientShip.thrusting(true);
